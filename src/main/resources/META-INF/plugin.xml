@@ -29,6 +29,15 @@
         <toolWindow id="ProWritingAid" anchor="right" factoryClass="dev.accelerated.pro_writing_aid.integration.ProWritingAidToolWindowFactory" secondary="true" />
     </extensions>
 
+    <applicationListeners>
+        <listener
+                topic="com.intellij.openapi.project.ProjectManagerListener"
+                class="dev.accelerated.pro_writing_aid.integration.ProjectManagerSubscriber" />
+        <listener
+                topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
+                class="dev.accelerated.pro_writing_aid.integration.FileEditorManagerSubscriber" />
+    </applicationListeners>
+
 <!--    <extensions defaultExtensionNs="nl.rubensten.texifyidea">-->
 <!--        &lt;!&ndash; https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html#idea-plugin__extensions &ndash;&gt;-->
 <!--    </extensions>-->

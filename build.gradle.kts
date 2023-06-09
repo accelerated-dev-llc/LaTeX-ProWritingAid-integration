@@ -19,9 +19,9 @@ java {
 
 // See https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2022.2.5")
+    version.set("2023.1")
     plugins.set(listOf(
-        "nl.rubensten.texifyidea:0.7.23",
+        "nl.rubensten.texifyidea:0.7.30",
         "com.firsttimeinforever.intellij.pdf.viewer.intellij-pdf-viewer:0.14.0"
     ))
 }
@@ -34,8 +34,8 @@ tasks {
     patchPluginXml {
         version.set("${project.version}")
 //        sinceBuild.set("231")
-        sinceBuild.set("222")
-        untilBuild.set("231.*")
+//        sinceBuild.set("222")
+//        untilBuild.set("231.*")
     }
 
     compileKotlin {
