@@ -4,11 +4,10 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiPlainText
+import com.intellij.psi.util.elementType
 import nl.hannahsten.texifyidea.lang.commands.LatexCommand
-import nl.hannahsten.texifyidea.psi.LatexCommands
-import nl.hannahsten.texifyidea.psi.LatexContent
-import nl.hannahsten.texifyidea.psi.LatexNormalText
-import nl.hannahsten.texifyidea.psi.LatexVisitor
+import nl.hannahsten.texifyidea.psi.*
+import nl.hannahsten.texifyidea.util.labels.extractLabelName
 
 class LatexTextVisitor : LatexVisitor() {
 
@@ -23,36 +22,55 @@ class LatexTextVisitor : LatexVisitor() {
 //        LOG.warn("Command: ${o.command}")
 //    }
 
+    override fun visitNoMathContent(o: LatexNoMathContent) {
+        super.visitNoMathContent(o)
+
+        LOG.warn("NoMathContent: ${o.text}")
+
+        // @todo verify this is a document module
+        val commandToken = o.commands?.commandToken?.text?.substring(1)
+        LOG.warn("Token: ${commandToken}")
+        val fc = o.commands?.firstChild
+        LOG.warn(fc?.text)
+        LOG.warn(fc?.extractLabelName())
+        LOG.warn(fc.toString())
+
+//        if (fc?.elementType == LatexTypes.) {
+//            LOG.warn("Command: ${fc.text}")
+//        }
+
+        o.acceptChildren(this)
+    }
+
     override fun visitNormalText(text: LatexNormalText) {
         super.visitNormalText(text)
 
-        if (text.text.endsWith("world")) {
-            text.text.replace("world", "WORLD")
-        }
+        text.acceptChildren(this)
 
         LOG.warn("Normal text: ${text.text}")
     }
 
-    override fun visitPlainText(content: PsiPlainText) {
-        super.visitPlainText(content)
+    override fun visitEnvironmentContent(o: LatexEnvironmentContent) {
+        super.visitEnvironmentContent(o)
 
-        if (content.text.endsWith("world")) {
-            val replaced = content.text.replace("world", "WORLD")
-            LOG.warn(replaced)
-        }
+        LOG.warn("Environment content: ${o.text}")
 
-        LOG.warn("Plain text: ${content.text}")
-    }
-
-    public override fun visitPsiElement(o: PsiElement) {
-        super.visitPsiElement(o)
-
-        LOG.warn("PsiElement: ${o.text}")
+        o.acceptChildren(this)
     }
 
     override fun visitContent(o: LatexContent) {
         super.visitContent(o)
 
         LOG.warn("Content: ${o.text}")
+    }
+
+    override fun visitPlainText(content: PsiPlainText) {
+        super.visitPlainText(content)
+
+        LOG.warn("Plain text: ${content.text}")
+        if (content.text.endsWith("world")) {
+            val replaced = content.text.replace("world", "WORLD")
+            LOG.warn(replaced)
+        }
     }
 }

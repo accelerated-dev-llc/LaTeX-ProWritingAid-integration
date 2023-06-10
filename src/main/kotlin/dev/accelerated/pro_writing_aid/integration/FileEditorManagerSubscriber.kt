@@ -7,10 +7,16 @@ import com.intellij.openapi.fileEditor.FileEditorManagerListener
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiPlainText
+import com.intellij.psi.util.PsiTreeUtil
 import nl.hannahsten.texifyidea.file.LatexFileType
 import nl.hannahsten.texifyidea.psi.LatexContent
 import nl.hannahsten.texifyidea.psi.LatexNormalText
 import nl.hannahsten.texifyidea.psi.LatexVisitor
+import nl.hannahsten.texifyidea.psi.impl.LatexContentImpl
+import nl.hannahsten.texifyidea.psi.impl.LatexEnvironmentContentImpl
+import nl.hannahsten.texifyidea.psi.impl.LatexNoMathContentImpl
+import nl.hannahsten.texifyidea.psi.impl.LatexNormalTextImpl
+import nl.hannahsten.texifyidea.psi.impl.LatexParameterTextImpl
 import nl.hannahsten.texifyidea.util.currentTextEditor
 import nl.hannahsten.texifyidea.util.files.psiFile
 
@@ -55,9 +61,27 @@ class FileEditorManagerSubscriber : FileEditorManagerListener {
             val psi= event.newFile?.psiFile(event.manager.project)
 
             LOG.warn("Starting to visit")
-            psi?.acceptChildren(LatexTextVisitor())
+            val visitor = LatexTextVisitor()
+//            psi?.acceptChildren(visitor)
 //            psi?.accept(LatexTextVisitor())
 //            psi?.acc
+
+            PsiTreeUtil
+                .findChildrenOfType(psi, LatexEnvironmentContentImpl::class.java)
+                .forEach {
+                    it.accept(visitor)
+                }
+
+//            PsiTreeUtil.findChildrenOfAnyType(
+//                content,
+//                true,
+//                LatexNoMathContentImpl::class.java,
+//                LatexParameterTextImpl::class.java,
+//                LatexNormalTextImpl::class.java,
+//            ).forEach {
+//                it.accept(visitor)
+//                LOG.warn("Found: ${it.text}")
+//            }
         } else {
             LOG.warn("NON-TEX TILE OPENED: ${event.newFile?.name}")
         }
