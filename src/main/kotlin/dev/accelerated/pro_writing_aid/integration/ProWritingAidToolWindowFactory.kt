@@ -1,23 +1,16 @@
 package dev.accelerated.pro_writing_aid.integration
 
-import com.intellij.codeInsight.codeVision.ui.model.CodeVisionSelectionController
 import com.intellij.openapi.diagnostic.Logger
-import com.intellij.openapi.fileEditor.FileEditorLocation
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
-import com.intellij.ui.components.JBTextArea
-import com.intellij.ui.components.JBTextField
 import com.intellij.ui.content.Content
 import com.intellij.ui.content.ContentFactory
 import com.intellij.ui.dsl.builder.panel
-import nl.hannahsten.texifyidea.file.LatexFile
 import nl.hannahsten.texifyidea.file.LatexFileType
 import nl.hannahsten.texifyidea.util.currentTextEditor
 import nl.hannahsten.texifyidea.util.files.psiFile
-import nl.hannahsten.texifyidea.util.isLatexProject
 
 public class ProWritingAidToolWindowFactory : ToolWindowFactory, DumbAware {
 
