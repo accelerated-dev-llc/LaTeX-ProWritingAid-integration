@@ -6,6 +6,11 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.8.21"
 }
 
+dependencies {
+    // Other dependencies.
+    testImplementation(kotlin("test"))
+}
+
 group = "dev.accelerated"
 version = "1.0-SNAPSHOT"
 
@@ -44,5 +49,9 @@ tasks {
 
     compileTestKotlin {
         kotlinOptions.jvmTarget = "17"
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }

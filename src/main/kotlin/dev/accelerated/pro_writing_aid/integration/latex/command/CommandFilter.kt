@@ -2,8 +2,7 @@ package dev.accelerated.pro_writing_aid.integration.latex.command
 
 import com.intellij.openapi.diagnostic.Logger
 import dev.accelerated.pro_writing_aid.integration.latex.visitor.LatexCommandTextExtractor
-import dev.accelerated.pro_writing_aid.integration.latex.command.handler.LatexTextFinder
-import dev.accelerated.pro_writing_aid.integration.latex.visitor.LatexTextVisitor
+import dev.accelerated.pro_writing_aid.integration.latex.text.LatexTextFinder
 import nl.hannahsten.texifyidea.psi.LatexCommands
 
 typealias CommandPredicate = (command: LatexCommands) -> Boolean

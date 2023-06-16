@@ -1,7 +1,5 @@
 package dev.accelerated.pro_writing_aid.integration.latex.command
 
-import dev.accelerated.pro_writing_aid.integration.latex.command.handler.LatexTextFinder
-
 
 class Command(
     private val name: String

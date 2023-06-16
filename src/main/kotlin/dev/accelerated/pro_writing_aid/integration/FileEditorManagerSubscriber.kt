@@ -33,8 +33,8 @@ class FileEditorManagerSubscriber : FileEditorManagerListener {
                     psi,
                     true,
                     LatexNoMathContentImpl::class.java,
-                    LatexNormalTextImpl::class.java,
-                    PsiElement::class.java,
+//                    LatexNormalTextImpl::class.java,
+//                    PsiElement::class.java,
                     PsiWhiteSpaceImpl::class.java
                 ).forEach {
                     it.accept(visitor)
